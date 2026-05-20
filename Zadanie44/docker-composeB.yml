@@ -1,0 +1,28 @@
+# B
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/shop
+      SPRING_DATASOURCE_USERNAME: shop_user
+      SPRING_DATASOURCE_PASSWORD: shop_password
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: shop
+      POSTGRES_USER: shop_user
+      POSTGRES_PASSWORD: shop_password
+    networks:
+      - db-network
+
+networks:
+  app-network:
+  db-network:
